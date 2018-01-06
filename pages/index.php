@@ -232,10 +232,10 @@
                 "sPaginationType":"full_numbers",
                 "iDisplayLength": 10,
                 "aoColumns": [
-                    { mData: 'agency' } ,
-                    { mData: 'district' },
+                    { mData: 'agency' } ,                    
                     { mData: 'project' },
                     { mData: 'trade' },
+                    { mData: 'district' },
                     { mData: 'training_center' } ,
                     { mData: 'student_name_bangla' } ,
                     { mData: 'father_name' },
