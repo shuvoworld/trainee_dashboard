@@ -1,10 +1,6 @@
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "probatayon";
-$conn = new mysqli($servername, $username, $password, $dbname);
+include('connection.php');
 
 include('common.php');
 
@@ -65,33 +61,7 @@ $project_info=mysqli_fetch_assoc($result);
 
     <div id="wrapper">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-               <!--  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button> -->
-                <a class="navbar-brand" href="student.php">প্রশিক্ষন বাতায়ন থেকে সংগৃহীত প্রশিক্ষণার্থী’র তথ্য</a>
-            </div>
-            
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                    
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <?php //include ('left_menu.php');?>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+       <?php include ('left_menu.php'); ?>
 
         <div id="page-wrapper">
             <div class="row">

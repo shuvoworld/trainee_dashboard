@@ -1,9 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "probatayon";
-$conn = new mysqli($servername, $username, $password, $dbname);
+include('connection.php');
 mysqli_query ($conn, "set character_set_client='utf8'"); 
  mysqli_query ($conn, "set character_set_results='utf8'"); 
 
