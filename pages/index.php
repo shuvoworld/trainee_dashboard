@@ -155,6 +155,16 @@ $project_info=mysqli_fetch_assoc($result);
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            
+                        
+                            <table>
+                                <tr>
+                                    <td>Mobile</td>
+                                    <td><input id="mobile_number" name="mobile_number" type="text"></td>
+                                    <td><input type="button" value="submit" id="submit" /></td>
+                                </tr>
+                            </table>
+                            
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
@@ -211,12 +221,18 @@ $project_info=mysqli_fetch_assoc($result);
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
     $( document ).ready(function() {
+
     var table = $('#dataTables-example').dataTable({
                 "bProcessing": true,
-                "sAjaxSource": "data.php",
-                "bPaginate":true,
-                "sPaginationType":"full_numbers",
-                "iDisplayLength": 10,
+               "serverSide": true,
+               "bRetrieve": true,
+               "ajax": {
+                    "url": "data.php",
+                    "type" : 'POST',
+                    "data": function(d){
+                        d.mobile_number = $('#mobile_number').val();
+                    }   
+                },
                 "aoColumns": [
                     { mData: 'agency' } ,                    
                     { mData: 'project' },
@@ -227,8 +243,13 @@ $project_info=mysqli_fetch_assoc($result);
                     { mData: 'father_name' },
                     { mData: 'mother_name' },
                     { mData: 'mobile_number' }
-                            ]
+                    ]
         });
+        
+       $('#submit').click(function(){ //button filter event click
+        table.api().ajax.reload();  //just reload table
+
+});
     });
 </script>
 
