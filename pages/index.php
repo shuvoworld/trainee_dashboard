@@ -1,3 +1,26 @@
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "probatayon";
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+include('common.php');
+
+$sql = "SELECT count(*) as total_student FROM training_student_info;";
+$result = mysqli_query($conn, $sql);
+$data=mysqli_fetch_assoc($result);
+
+$sql = "SELECT count(*) as total_training_center FROM training_center;";
+$result = mysqli_query($conn, $sql);
+$training_center=mysqli_fetch_assoc($result);
+
+$sql = "SELECT count(*) as total_project_info FROM project_info;";
+$result = mysqli_query($conn, $sql);
+$project_info=mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,6 +94,82 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo convertEnglishDigitToBengali($project_info['total_project_info']); ?></div>
+                                    <div>প্রকল্প এবং কর্মসূচী</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo convertEnglishDigitToBengali($training_center['total_training_center']); ?></div>
+                                    <div>ট্রেইনিং সেন্টার</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo convertEnglishDigitToBengali($data['total_student']); ?></div>
+                                    <div>প্রশিক্ষণার্থী</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a> -->
+                    </div>
+                </div>
+                
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">প্রশিক্ষণার্থী’র তথ্য</h1>

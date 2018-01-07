@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "training_db";
+$dbname = "probatayon";
 $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_query ($conn, "set character_set_client='utf8'"); 
  mysqli_query ($conn, "set character_set_results='utf8'"); 
