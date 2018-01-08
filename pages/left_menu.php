@@ -16,10 +16,10 @@
                     <ul class="nav" id="side-menu">
                     
                         <li>
-                            <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> ড্যাশবোর্ড</a>
                         </li>
                         <li>
-                            <a href="district_student_map.php"><i class="fa fa-dashboard fa-fw"></i> District Wise Total Trainees in GIS</a>
+                            <a href="district_student_map.php"><i class="fa fa-dashboard fa-fw"></i> জিআইএস ম্যাপ এ তথ্য</a>
                         </li>
                         <?php //include ('left_menu.php');?>
                     </ul>

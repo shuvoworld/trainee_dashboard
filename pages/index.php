@@ -1,8 +1,16 @@
 
 <?php
 include('connection.php');
+mysqli_query ($conn, "set character_set_client='utf8'"); 
+ mysqli_query ($conn, "set character_set_results='utf8'"); 
 
 include('common.php');
+
+$sql = "SELECT * FROM project_info;";
+$projects = mysqli_query($conn, $sql);
+
+$sql = "SELECT * FROM trade_info;";
+$trades = mysqli_query($conn, $sql);
 
 $sql = "SELECT count(*) as total_student FROM training_student_info;";
 $result = mysqli_query($conn, $sql);
@@ -47,6 +55,7 @@ $project_info=mysqli_fetch_assoc($result);
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -156,15 +165,51 @@ $project_info=mysqli_fetch_assoc($result);
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             
-                        
-                            <table>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td><input id="mobile_number" name="mobile_number" type="text"></td>
-                                    <td><input type="button" value="submit" id="submit" /></td>
-                                </tr>
-                            </table>
-                            
+                            <form id="form-filter" class="form-horizontal">
+                   
+                    <div class="form-group">
+                        <label for="project" class="col-sm-2 control-label">প্রকল্প/কর্মসূচী</label>
+                        <div class="col-sm-4">
+                            <?php
+                            if(mysqli_num_rows($projects) > 0){
+                                $select= '<select name="project" id="project" class="form-control">';
+                                $select.='<option value="">সিলেক্ট করুন</option>';
+                                while($row = mysqli_fetch_assoc($projects)){
+                                    $select.='<option value="'.$row['project_name'].'">'.$row['project_name'].'</option>';
+                                }
+                            }
+                                $select.='</select>';
+                            echo $select;
+                            ?>
+
+                        </div>
+                    </div>
+
+                     <div class="form-group">
+                        <label for="project" class="col-sm-2 control-label">ট্রেড</label>
+                        <div class="col-sm-4">
+                            <?php
+                            if(mysqli_num_rows($trades) > 0){
+                                $select= '<select name="trade" id="trade" class="form-control">';
+                                $select.='<option value="">সিলেক্ট করুন</option>';
+                                while($row = mysqli_fetch_assoc($trades)){
+                                    $select.='<option value="'.$row['trade_name'].'">'.$row['trade_name'].'</option>';
+                                }
+                            }
+                                $select.='</select>';
+                            echo $select;
+                            ?>
+
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                            <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                        </div>
+                    </div>
+                           </form>
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
@@ -217,20 +262,23 @@ $project_info=mysqli_fetch_assoc($result);
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script type="text/javascript">
-    $( document ).ready(function() {
 
+    $( document ).ready(function() {
     var table = $('#dataTables-example').dataTable({
                 "bProcessing": true,
-               "serverSide": true,
-               "bRetrieve": true,
-               "ajax": {
+                "bPaginate":true,
+                "sPaginationType":"full_numbers",
+                "iDisplayLength": 10,
+                "ajax": {
                     "url": "data.php",
                     "type" : 'POST',
                     "data": function(d){
-                        d.mobile_number = $('#mobile_number').val();
+                        d.project = $('#project').val();
+                        d.trade = $('#trade').val();
                     }   
                 },
                 "aoColumns": [
@@ -243,14 +291,22 @@ $project_info=mysqli_fetch_assoc($result);
                     { mData: 'father_name' },
                     { mData: 'mother_name' },
                     { mData: 'mobile_number' }
-                    ]
+                            ]
         });
-        
-       $('#submit').click(function(){ //button filter event click
-        table.api().ajax.reload();  //just reload table
+    
+    $('#btn-filter').click(function(){ //button filter event click
+        table.api().ajax.reload(null, false);  //just reload table
+    });
+    $('#btn-reset').click(function(){ //button reset event click
+        $('#form-filter')[0].reset();
+        table.api().ajax.reload(null, false)  //just reload table
+    });
 
 });
-    });
+    $(document).ready(function() {
+    $('#project').select2();
+    $('#trade').select2();
+});
 </script>
 
 </body>

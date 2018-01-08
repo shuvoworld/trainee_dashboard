@@ -1,9 +1,8 @@
 <?php
-
-$mobile_number = $_REQUEST['mobile_number'];
-
-include('connection.php');
-mysqli_query ($conn, "set character_set_client='utf8'"); 
+ include('connection.php');
+ $project = $_REQUEST['project'];
+ $trade = $_REQUEST['trade'];
+ mysqli_query ($conn, "set character_set_client='utf8'"); 
  mysqli_query ($conn, "set character_set_results='utf8'"); 
 
  mysqli_query ($conn, "set collation_connection='utf8_general_ci'"); 
@@ -24,9 +23,15 @@ LEFT JOIN district AS d ON t.district = d.id
 LEFT JOIN trade_info AS tr ON s.trade_name = tr.trade_id
 LEFT JOIN project_info AS pr ON s.project_id = pr.project_id
 LEFT JOIN institution as ins ON ins.ins_id  = pr.ins_id";
-if($mobile_number != '')
+
+if($project != '')
 {
-	$sql = $sql . " WHERE s.mobile_number LIKE '%" . $mobile_number ."%'";
+	$sql = $sql . " WHERE pr.project_name LIKE '%" . $project ."%'";
+}
+
+if($trade != '')
+{
+	$sql = $sql . " AND tr.trade_name LIKE '%" . $trade ."%'";
 }
 
 $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
