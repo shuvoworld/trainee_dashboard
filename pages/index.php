@@ -6,6 +6,9 @@ mysqli_query ($conn, "set character_set_client='utf8'");
 
 include('common.php');
 
+$sql = "SELECT * FROM institution;";
+$institutions = mysqli_query($conn, $sql);
+
 $sql = "SELECT * FROM project_info;";
 $projects = mysqli_query($conn, $sql);
 
@@ -168,6 +171,25 @@ $project_info=mysqli_fetch_assoc($result);
                             <form id="form-filter" class="form-horizontal">
                    
                     <div class="form-group">
+                        <label for="project" class="col-sm-2 control-label">দপ্তর/সংস্থা</label>
+                        <div class="col-sm-4">
+                            <?php
+                            if(mysqli_num_rows($projects) > 0){
+                                $select= '<select name="institution" id="institution" class="form-control">';
+                                $select.='<option value="">সিলেক্ট করুন</option>';
+                                while($row = mysqli_fetch_assoc($institutions)){
+                                    $select.='<option value="'.$row['ins_id'].'">'.$row['institution_name'].'</option>';
+                                }
+                            }
+                                $select.='</select>';
+                            echo $select;
+                            ?>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
                         <label for="project" class="col-sm-2 control-label">প্রকল্প/কর্মসূচী</label>
                         <div class="col-sm-4">
                             <?php
@@ -277,6 +299,7 @@ $project_info=mysqli_fetch_assoc($result);
                     "url": "data.php",
                     "type" : 'POST',
                     "data": function(d){
+                        d.institution = $('#institution').val();
                         d.project = $('#project').val();
                         d.trade = $('#trade').val();
                     }   
@@ -304,6 +327,7 @@ $project_info=mysqli_fetch_assoc($result);
 
 });
     $(document).ready(function() {
+        $('#institution').select2();
     $('#project').select2();
     $('#trade').select2();
 });

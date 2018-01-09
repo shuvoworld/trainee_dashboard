@@ -1,5 +1,6 @@
 <?php
  include('connection.php');
+ $institution = $_REQUEST['institution'];
  $project = $_REQUEST['project'];
  $trade = $_REQUEST['trade'];
  mysqli_query ($conn, "set character_set_client='utf8'"); 
@@ -23,6 +24,12 @@ LEFT JOIN district AS d ON t.district = d.id
 LEFT JOIN trade_info AS tr ON s.trade_name = tr.trade_id
 LEFT JOIN project_info AS pr ON s.project_id = pr.project_id
 LEFT JOIN institution as ins ON ins.ins_id  = pr.ins_id WHERE 1";
+
+
+if($institution != '')
+{
+	$sql = $sql . " AND ins.ins_id = ". $institution;
+}
 
 if($project != '')
 {
