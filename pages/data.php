@@ -22,16 +22,16 @@ LEFT JOIN training_center AS t ON s.tcid = t.tcid
 LEFT JOIN district AS d ON t.district = d.id
 LEFT JOIN trade_info AS tr ON s.trade_name = tr.trade_id
 LEFT JOIN project_info AS pr ON s.project_id = pr.project_id
-LEFT JOIN institution as ins ON ins.ins_id  = pr.ins_id";
+LEFT JOIN institution as ins ON ins.ins_id  = pr.ins_id WHERE 1";
 
 if($project != '')
 {
-	$sql = $sql . " WHERE pr.project_name LIKE '%" . $project ."%'";
+	$sql = $sql . " AND pr.project_name LIKE '%" . $project ."%'";
 }
 
 if($trade != '')
 {
-	$sql = $sql . " AND tr.trade_name LIKE '%" . $trade ."%'";
+	$sql = $sql . " AND tr.trade_id = ". $trade;
 }
 
 $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));

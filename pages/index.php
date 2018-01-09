@@ -193,7 +193,7 @@ $project_info=mysqli_fetch_assoc($result);
                                 $select= '<select name="trade" id="trade" class="form-control">';
                                 $select.='<option value="">সিলেক্ট করুন</option>';
                                 while($row = mysqli_fetch_assoc($trades)){
-                                    $select.='<option value="'.$row['trade_name'].'">'.$row['trade_name'].'</option>';
+                                    $select.='<option value="'.$row['trade_id'].'">'.$row['trade_name'].'</option>';
                                 }
                             }
                                 $select.='</select>';
