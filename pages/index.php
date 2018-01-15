@@ -26,6 +26,21 @@ $training_center=mysqli_fetch_assoc($result);
 $sql = "SELECT count(*) as total_project_info FROM project_info;";
 $result = mysqli_query($conn, $sql);
 $project_info=mysqli_fetch_assoc($result);
+
+$project_sql = "SELECT
+    pr.project_name AS 'project',
+  COUNT(*) as 'total'
+FROM
+    `training_student_info` AS s
+LEFT JOIN training_center AS t ON s.tcid = t.tcid
+RIGHT JOIN district AS d ON t.district = d.id
+LEFT JOIN trade_info AS tr ON s.trade_name = tr.trade_id
+LEFT JOIN project_info AS pr ON s.project_id = pr.project_id
+LEFT JOIN institution as ins ON ins.ins_id  = pr.ins_id
+GROUP BY pr.project_id";
+
+$project_result = mysqli_query($conn, $project_sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -150,8 +165,25 @@ $project_info=mysqli_fetch_assoc($result);
                         </a> -->
                     </div>
                 </div>
+
                 
+
             </div>
+
+            <!--  <div class="row">
+                    <div class="col-md-6">
+                        <?php
+                            while ($result = mysqli_fetch_assoc($project_result)) {
+                               ?>
+                                <div class="alert alert-info alert-dismissable">
+                                 <?php 
+                                 echo $result['project'] . " &nbsp; &nbsp; <button class=\"btn btn-info\">". $result['total']."</button>";
+                                 ?>
+                            </div>
+                          <?php  }
+                        ?>
+                    </div>
+                </div> -->
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">প্রশিক্ষণার্থী’র তথ্য</h1>

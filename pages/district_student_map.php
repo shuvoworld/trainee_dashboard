@@ -55,7 +55,7 @@
 
              
 
-       <iframe src="https://www.google.com/maps/d/embed?mid=12RzoXuLYM77IIEedFDO30sMxA7LSOluP" width="1000" height="800"  frameBorder="0"></iframe>
+       <iframe src="https://www.google.com.bd/maps/d/embed?mid=1RZ9YS99T7KZT66irqrt_DUM_XGa8HBie" width="1100" height="800"  frameBorder="0"></iframe>
                 
             
             
