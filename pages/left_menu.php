@@ -7,21 +7,45 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button> -->
-                <a class="navbar-brand" href="student.php">প্রশিক্ষন বাতায়ন থেকে সংগৃহীত প্রশিক্ষণার্থী’র তথ্য</a>
+                <a class="navbar-brand" href="index.php">তথ্য ড্যাশবোর্ড - মহিলা ও শিশু বিষয়ক মন্ত্রণালয়</a>
             </div>
             
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                    
+                    <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> প্রশিক্ষন বাতায়ন<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="index.php">রিপোর্ট</a>
+                                </li>
+                                <li>
+                                    <a href="mapnew.php">ম্যাপ এ তথ্য</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                    </li>
+    
                         <li>
-                            <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> ড্যাশবোর্ড</a>
+                            <a href="vgd.php"><i class="fa fa-dashboard fa-fw"></i> ভিজিডি তথ্য</a>
                         </li>
-                        <li>
-                            <a href="district_student_map.php"><i class="fa fa-dashboard fa-fw"></i> জিআইএস ম্যাপ এ তথ্য</a>
-                        </li>
-                        <?php //include ('left_menu.php');?>
+                    <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> মাল্টিসেক্টরাল প্রোগ্রাম<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="occ.php">প্রদত্ত সেবা</a>
+                                </li>
+                                <li>
+                                    <a href="occ_hospital.php">জেলা সদর হাসপাতাল ও উপজেলা স্বাস্থ্য কমপ্লেক্সের প্রদত্ত সেবা</a>
+                                </li>
+                                <li>
+                                    <a href="helpline.php">জাতীয় হেল্পলাইন কেন্দ্র(NHCVAWC)</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                    </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
