@@ -156,34 +156,10 @@ $project_result = mysqli_query($conn, $project_sql);
                                 </div>
                             </div>
                         </div>
-                        <!-- <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a> -->
                     </div>
-                </div>
-
-                
-
+                </div>            
             </div>
 
-            <!--  <div class="row">
-                    <div class="col-md-6">
-                        <?php
-                            while ($result = mysqli_fetch_assoc($project_result)) {
-                               ?>
-                                <div class="alert alert-info alert-dismissable">
-                                 <?php 
-                                 echo $result['project'] . " &nbsp; &nbsp; <button class=\"btn btn-info\">". $result['total']."</button>";
-                                 ?>
-                            </div>
-                          <?php  }
-                        ?>
-                    </div>
-                </div> -->
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">প্রশিক্ষণার্থী’র তথ্য</h1>
@@ -199,75 +175,21 @@ $project_result = mysqli_query($conn, $project_sql);
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            
-                            <form id="form-filter" class="form-horizontal">
-                   
-                    <div class="form-group">
-                        <label for="project" class="col-sm-2 control-label">দপ্তর/সংস্থা</label>
-                        <div class="col-sm-4">
-                            <?php
-                            if(mysqli_num_rows($projects) > 0){
-                                $select= '<select name="institution" id="institution" class="form-control">';
-                                $select.='<option value="">সিলেক্ট করুন</option>';
-                                while($row = mysqli_fetch_assoc($institutions)){
-                                    $select.='<option value="'.$row['ins_id'].'">'.$row['institution_name'].'</option>';
-                                }
-                            }
-                                $select.='</select>';
-                            echo $select;
-                            ?>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="project" class="col-sm-2 control-label">প্রকল্প/কর্মসূচী</label>
-                        <div class="col-sm-4">
-                            <?php
-                            if(mysqli_num_rows($projects) > 0){
-                                $select= '<select name="project" id="project" class="form-control">';
-                                $select.='<option value="">সিলেক্ট করুন</option>';
-                                while($row = mysqli_fetch_assoc($projects)){
-                                    $select.='<option value="'.$row['project_name'].'">'.$row['project_name'].'</option>';
-                                }
-                            }
-                                $select.='</select>';
-                            echo $select;
-                            ?>
-
-                        </div>
-                    </div>
-
-                     <div class="form-group">
-                        <label for="project" class="col-sm-2 control-label">ট্রেড</label>
-                        <div class="col-sm-4">
-                            <?php
-                            if(mysqli_num_rows($trades) > 0){
-                                $select= '<select name="trade" id="trade" class="form-control">';
-                                $select.='<option value="">সিলেক্ট করুন</option>';
-                                while($row = mysqli_fetch_assoc($trades)){
-                                    $select.='<option value="'.$row['trade_id'].'">'.$row['trade_name'].'</option>';
-                                }
-                            }
-                                $select.='</select>';
-                            echo $select;
-                            ?>
-
-                        </div>
-                    </div>
-            
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
-                            <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                        </div>
-                    </div>
-                           </form>
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="data">
                                 <thead>
                                 <tr>
-                                <th>দপ্তর/সংস্থা</th>
+                                <th>
+                                <select name="institution" id="institution" class="form-control">
+                                    <option value="">দপ্তর/সংস্থা</option>
+                                    <?php 
+                                    while($row = mysqli_fetch_array($institutions))
+                                {
+                                    echo '<option value="'.$row["ins_id"].'">'.$row["institution_name"].'</option>';
+                                }
+                                ?>
+                                </select>
+                                </th>
                                 <th>প্রকল্প/ কর্মসুচি</th>
                                 <th>ট্রেড</th>
                                 <th>জেলা</th>
@@ -279,11 +201,7 @@ $project_result = mysqli_query($conn, $project_sql);
                                 </tr>
                                 </thead>
                             </table>
-                            <!-- /.table-responsive -->
-                            <!-- <div class="well">
-                                <h4>DataTables Usage Information</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>                        
-                            </div> -->
+ 
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -319,49 +237,43 @@ $project_result = mysqli_query($conn, $project_sql);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script type="text/javascript">
+    <script type="text/javascript" language="javascript" >
+$(document).ready(function(){
+ 
+ load_data();
 
-    $( document ).ready(function() {
-    var table = $('#dataTables-example').dataTable({
-                "bProcessing": true,
-                "bPaginate":true,
-                "sPaginationType":"full_numbers",
-                "iDisplayLength": 10,
-                "ajax": {
-                    "url": "data.php",
-                    "type" : 'POST',
-                    "data": function(d){
-                        d.institution = $('#institution').val();
-                        d.project = $('#project').val();
-                        d.trade = $('#trade').val();
-                    }   
-                },
-                "aoColumns": [
-                    { mData: 'agency' } ,                    
-                    { mData: 'project' },
-                    { mData: 'trade' },
-                    { mData: 'district' },
-                    { mData: 'training_center' } ,
-                    { mData: 'student_name_bangla' } ,
-                    { mData: 'father_name' },
-                    { mData: 'mother_name' },
-                    { mData: 'mobile_number' }
-                            ]
-        });
-    
-    $('#btn-filter').click(function(){ //button filter event click
-        table.api().ajax.reload(null, false);  //just reload table
-    });
-    $('#btn-reset').click(function(){ //button reset event click
-        $('#form-filter')[0].reset();
-        table.api().ajax.reload(null, false)  //just reload table
-    });
+ function load_data(is_agency)
+ {
+  var dataTable = $('#data').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"data.php",
+    type:"POST",
+    data:{is_agency:is_agency}
+   },
+   "columnDefs":[
+    {
+     "targets":[0],
+     "orderable":false,
+    },
+   ],
+  });
+ }
 
-});
-    $(document).ready(function() {
-        $('#institution').select2();
-    $('#project').select2();
-    $('#trade').select2();
+ $(document).on('change', '#institution', function(){
+  var agency = $(this).val();
+  $('#data').DataTable().destroy();
+  if(agency != '')
+  {
+   load_data(agency);
+  }
+  else
+  {
+   load_data();
+  }
+ });
 });
 </script>
 
